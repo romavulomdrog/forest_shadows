@@ -1,0 +1,45 @@
+﻿using UnityEngine;
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+public class TreeWind : MonoBehaviour
+{
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+    public float globalSpeed = 1;
+    public float powerWings = 30;
+    public float windSpeed = 0.2f;
+    public float porivi = 0.8f;
+    public int rotate = 500;
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+    void LateUpdate()
+    {
+        //--------------
+
+        Vector2 add = new Vector2(0, 1);
+        float timeTime = 100 + Mathf.PingPong(Time.time * globalSpeed, 200);
+
+        add = Quaternion.AngleAxis(Mathf.PerlinNoise(timeTime * windSpeed, 0) * rotate, Vector3.forward) * add;
+        float sp = Mathf.PerlinNoise(timeTime * porivi, 0);
+        Shader.SetGlobalFloat("_TreeWindStrength", sp * powerWings);
+
+        Shader.SetGlobalFloat("_TreeWindDirX", add.x);
+        Shader.SetGlobalFloat("_TreeWindDirZ", add.y);
+
+        float locPerl = Mathf.PerlinNoise(timeTime * 0.01f, 0);
+        Shader.SetGlobalFloat("_TreeWindWorld", locPerl);
+
+        //--------------
+    }
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+}

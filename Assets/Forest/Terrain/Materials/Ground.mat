@@ -1,0 +1,194 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Ground
+  m_Shader: {fileID: 4800000, guid: 7e748a5c5fd18154ebb45adf7a173ceb, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 2800000, guid: 3ea206b527cb6bd4eb597f4fbc6b752f, type: 3}
+        m_Scale: {x: 7, y: 7}
+        m_Offset: {x: 0, y: 0}
+    - _BumpTex:
+        m_Texture: {fileID: 2800000, guid: 5dd6d375b1df99f4eaaa6de37126a2f2, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Detail:
+        m_Texture: {fileID: 2800000, guid: 5fb3a975addc74a49a219b3248002a45, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DispTex:
+        m_Texture: {fileID: 10305, guid: 0000000000000000f000000000000000, type: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _GTex:
+        m_Texture: {fileID: 2800000, guid: 43fb99b10a643f640920fda684d5b74e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HTex:
+        m_Texture: {fileID: 10305, guid: 0000000000000000f000000000000000, type: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: d7ee2eb81de131d49a102be7acccf35e, type: 3}
+        m_Scale: {x: 8, y: 8}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MossTex:
+        m_Texture: {fileID: 2800000, guid: 9926e8b8960d1c24da43e476d2968241, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 2800000, guid: 0c9abfc361905334c87fc91a255c14fc, type: 3}
+        m_Scale: {x: 2, y: 2}
+        m_Offset: {x: 0, y: 0}
+    - _RTex:
+        m_Texture: {fileID: 2800000, guid: 8f7ae82c5187b494399a09a1ab59a592, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture1:
+        m_Texture: {fileID: 2800000, guid: 461f109a0e005a049a34a6aad25ddc64, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2:
+        m_Texture: {fileID: 2800000, guid: 21c6bcb60513bec4b94d94895a1a8a3b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture3:
+        m_Texture: {fileID: 2800000, guid: 6cbdc6d1ffba2454eb10e8ffc55817ed, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _WindTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _Amount: 0.65
+    - _BumpScale: 1
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _DispVal: 0.77
+    - _DstBlend: 0
+    - _GetYpos: 1
+    - _GlossMapScale: 1
+    - _Glossiness: 0.3
+    - _GlossyReflections: 1
+    - _GridAlias: 0.5
+    - _GridStep: 1
+    - _GridWidth: 10
+    - _Height: 30
+    - _IntensityNm: 2
+    - _Level0: -5
+    - _Level1: 34
+    - _Level10: 60
+    - _Level11: 80
+    - _Level12: 90
+    - _Level13: 95
+    - _Level14: 110
+    - _Level15: 130
+    - _Level16: 150
+    - _Level17: 170
+    - _Level18: 300
+    - _Level19: 2000
+    - _Level2: 44
+    - _Level20: 2000
+    - _Level3: 90
+    - _Level4: 34.95
+    - _Level5: 35.05
+    - _Level6: 36
+    - _Level7: 38
+    - _Level8: 44
+    - _Level9: 44
+    - _Metallic: 1
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.04
+    - _PeakLevel: 55
+    - _RandomHeight: 0
+    - _RandomSpeed: 0
+    - _Scale: 0.13
+    - _Shininess: 0.05
+    - _Slope: 1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _Speed: 1
+    - _SrcBlend: 1
+    - _TerraGetYposition: 1
+    - _TexVal: 33.6
+    - _Tiling: 1
+    - _UVSec: 0
+    - _WaterLevel: 20
+    - _WaveHeight: 0
+    - _WaveLength: 0
+    - _WaveSpeed: 0
+    - _WorldScale: 1
+    - _ZWrite: 1
+    m_Colors:
+    - _Color: {r: 0.92300004, g: 0.89980906, b: 0.70964324, a: 1}
+    - _Direction: {r: 1, g: 0.1, b: 0, a: 0}
+    - _Emission: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _GridColour: {r: 0.17069852, g: 0.7352941, b: 0.010813159, a: 1}
+    - _GridColour1: {r: 1, g: 1, b: 1, a: 1}
+    - _Level0Color: {r: 0.11764706, g: 0.11764706, b: 0.11764706, a: 1}
+    - _Level10Color: {r: 0.25, g: 0.21076478, b: 0.15073529, a: 1}
+    - _Level11Color: {r: 0.21323532, g: 0.16839042, b: 0.111321375, a: 1}
+    - _Level12Color: {r: 0.19215687, g: 0.18039216, b: 0.16862746, a: 1}
+    - _Level13Color: {r: 0.19215687, g: 0.18039216, b: 0.16862746, a: 1}
+    - _Level14Color: {r: 0.19215687, g: 0.18039216, b: 0.16862746, a: 1}
+    - _Level15Color: {r: 0.19117647, g: 0.17868128, b: 0.16868512, a: 1}
+    - _Level16Color: {r: 0.16078432, g: 0.14117648, b: 0.1254902, a: 1}
+    - _Level17Color: {r: 0.19215687, g: 0.18039216, b: 0.16862746, a: 1}
+    - _Level18Color: {r: 0.16078432, g: 0.14117648, b: 0.1254902, a: 1}
+    - _Level19Color: {r: 0.16078432, g: 0.14117648, b: 0.1254902, a: 1}
+    - _Level1Color: {r: 0.2784314, g: 0.19215687, b: 0.13333334, a: 1}
+    - _Level20Color: {r: 0.16078432, g: 0.14117648, b: 0.1254902, a: 1}
+    - _Level2Color: {r: 0.29411766, g: 0.24705882, b: 0.16862746, a: 1}
+    - _Level3Color: {r: 0.19215687, g: 0.18039216, b: 0.16862746, a: 1}
+    - _Level4Color: {r: 0.38431373, g: 0.29803923, b: 0.22745098, a: 1}
+    - _Level5Color: {r: 0.38235295, g: 0.29675528, b: 0.22772492, a: 1}
+    - _Level6Color: {r: 0.35294116, g: 0.26995948, b: 0.20501728, a: 1}
+    - _Level7Color: {r: 0.32941177, g: 0.2784314, b: 0.19215687, a: 1}
+    - _Level8Color: {r: 0.29411766, g: 0.24705882, b: 0.16862746, a: 1}
+    - _Level9Color: {r: 0.29411763, g: 0.24587435, b: 0.16868511, a: 1}
+    - _MainColor: {r: 1, g: 1, b: 1, a: 1}
+    - _PeakColor: {r: 0.78218216, g: 0.15543899, b: 0.9191176, a: 1}
+    - _SpecColor: {r: 0.029411793, g: 0.029411793, b: 0.024654003, a: 1}
+    - _WaterColor: {r: 0.02745098, g: 0.023529412, b: 0.047058824, a: 1}

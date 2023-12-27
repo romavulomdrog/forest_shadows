@@ -1,0 +1,142 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Grass 0
+  m_Shader: {fileID: 4800000, guid: da8c84bb16011104bbf5e96d1a6c0cbb, type: 3}
+  m_ShaderKeywords: GEOM_TYPE_MESH
+  m_LightmapFlags: 0
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 2800000, guid: 4349c73c977f38849b5cf04461e22e36, type: 3}
+        m_Scale: {x: 1, y: 5}
+        m_Offset: {x: 0, y: 0}
+    - _Cube:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DecalTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Illum:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: afab2852263c53640a9a5442ad3dd2ca, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseTex:
+        m_Texture: {fileID: 2800000, guid: 9926e8b8960d1c24da43e476d2968241, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _WindTex:
+        m_Texture: {fileID: 2800000, guid: 8bbdfb492dfb38c4396d633e250f4e5e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _Amount: 0.1
+    - _BumpScale: 1
+    - _Cull: 2
+    - _Cutoff: 0.3
+    - _Cycle: 10
+    - _DetailNormalMapScale: 1
+    - _Distance: 1
+    - _DstBlend: 0
+    - _Elaste: 3
+    - _Emission: 1
+    - _GlossMapScale: 1
+    - _Glossiness: 0
+    - _GlossyReflections: 1
+    - _GrassFlex: 1
+    - _GrassFlexHi: 1
+    - _GrassWindLod: 150
+    - _LocalWindPower: 1.1
+    - _LocalWindWorld: 1.1
+    - _Metallic: 0
+    - _MinY: -10
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _Reflect: 1
+    - _Scale: 0.5
+    - _ShadowStrength: 1
+    - _Shaynes: 0
+    - _Shininess: 0.1
+    - _Smoothness: 0.5
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _Speed: 1.5
+    - _SpeedX: 0.1
+    - _SpeedY: 18.3
+    - _SquashAmount: 1
+    - _SrcBlend: 1
+    - _TranslucencyViewDependency: 0.7
+    - _UVSec: 0
+    - _WindQuality: 0
+    - _WorldScale: 5
+    - _ZWrite: 1
+    - _xScale: 1
+    - _yScale: 1
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _EmisColor: {r: 1, g: 1, b: 1, a: 0}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _HueVariation: {r: 1, g: 0.5, b: 0, a: 0.1}
+    - _Level0Color: {r: 0.37, g: 0.78, b: 0.92, a: 1}
+    - _Level1Color: {r: 0.65, g: 0.86, b: 0.63, a: 1}
+    - _Level2Color: {r: 0.69, g: 0.63, b: 0.31, a: 1}
+    - _Level3Color: {r: 0.75, g: 0.53, b: 0, a: 1}
+    - _MainColor: {r: 0, g: 0, b: 0, a: 1}
+    - _ReflectColor: {r: 0.12758622, g: 0.12758622, b: 0.12758622, a: 0.5}
+    - _SpecColor: {r: 0.04411763, g: 0.040770777, b: 0.038602926, a: 1}
+    - _TranslucencyColor: {r: 0.73, g: 0.85, b: 0.41, a: 1}
+    - _TreeInstanceColor: {r: 1, g: 1, b: 1, a: 1}
+    - _TreeInstanceScale: {r: 1, g: 1, b: 1, a: 1}
+    - _WaveAndDistance: {r: -1.41, g: 1.8, b: 8.63, a: -6.7}
+    - _WavingTint: {r: 0.7, g: 0.6, b: 0.5, a: 0}

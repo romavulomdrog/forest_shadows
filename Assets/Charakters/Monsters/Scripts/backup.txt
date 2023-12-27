@@ -1,0 +1,498 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+
+
+public class Monster_AI : MonoBehaviour {
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            
+
+
+    [Header("Target Detection")]
+    public LayerMask targetLayerMask;
+    public float targetDistance = 60;
+    public float targetAggression = 50;
+    public float targetIgnoreObstacles = 30;
+    public float targetAttack = 15;
+
+
+    [Header("Detour Obstacles")]
+    public float detourDistanceRay = 8;
+    public float detourBackRay = 5;
+    public float detourHeightRay = 5;
+    public float detourSizeRay = 2;
+    public float detourDistanceToAi = 5;
+    public LayerMask detourLayerMask;
+
+
+    [Header("Options AI")]
+    public float movementSpeed = 6;
+    public float rotationSpeed = 1;
+    public float gravity = 4;
+    public float visionAngle = 180;
+    public float decisionSpeed = 0.25f;
+    public bool deBug;
+
+
+    //=======================
+
+
+    WaitForSeconds delay_0;
+    Transform tr;
+    Vector3 vectRotGl;
+    Vector3 vectRotWalking;
+    Vector3 trPosition;
+    Vector3 colCurPl;
+    CharacterController ChControl;
+    Quaternion varQ1;
+    Collider[] colPhOvPl;
+    RaycastHit hitFofBl;
+
+    Vector3 detour_Ray_0;
+    Vector3 detour_Ray_1;
+    Vector3 detour_Ray_01A;
+    Vector3 detour_Ray_01B;
+    Vector3 detour_Ray_2;
+    Vector3 detour_Ray_3;
+
+    [HideInInspector]
+    public float speedchange = 1;
+    [HideInInspector]
+    public float rotationSpeedchange = 1;
+    [HideInInspector]
+    public int targetCurrentState;
+
+    float speedRand = 1;
+    float rotationSpeedRand = 1;
+    float distToColPl = 99999;
+    float timeDelta;
+
+    bool trigInPhSpher;
+    bool trigWalking;
+    bool trigColAngle;
+    bool trigFofNoBlok;
+    bool trigDetour;
+
+    bool rayDetourL;
+    bool rayDetourR;
+    bool rayDetourZL;
+    bool rayDetourZR;
+    bool rayDetourTrig;
+    float rayDetourZnak = 1;
+
+    bool gizmosOn;
+
+
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+    void Awake()
+    {
+        //=======================
+
+        delay_0 = new WaitForSeconds(decisionSpeed);
+        ChControl = GetComponent<CharacterController>();
+        tr = transform;
+        gizmosOn = true;
+
+        //=======================
+    }
+    
+
+    ////////////////////////////
+            
+
+    void OnEnable()
+    {
+        //=======================
+
+        StartCoroutine("AI_Core");
+        StartCoroutine("AI_Random");
+
+        //=======================
+    }
+
+
+    ////////////////////////////
+
+
+    void OnDisable()
+    {
+        //=======================
+
+        StopCoroutine("AI_Core");
+        StopCoroutine("AI_Random");
+        StopCoroutine("AI_Walking");
+
+        //=======================
+    }
+    
+    
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+                
+
+    void OnDrawGizmos()
+    {
+        if (deBug == true && gizmosOn == true)
+        {
+            //=======================
+            
+
+            //--- // right
+            if (rayDetourR == true) Gizmos.color = Color.red;
+            else Gizmos.color = Color.cyan;
+            Gizmos.DrawWireSphere(detour_Ray_01A, detourSizeRay);
+            Gizmos.DrawWireSphere(detour_Ray_01A + detour_Ray_2, detourSizeRay);
+
+
+            //--- // left
+            if (rayDetourL == true) Gizmos.color = Color.red;
+            else Gizmos.color = Color.cyan;
+            Gizmos.DrawWireSphere(detour_Ray_01B, detourSizeRay);
+            Gizmos.DrawWireSphere(detour_Ray_01B + detour_Ray_2, detourSizeRay);
+
+            //--- // zad 
+            if (rayDetourZR == true || rayDetourZL == true) Gizmos.color = Color.red;
+            else Gizmos.color = Color.cyan;
+            Gizmos.DrawRay(detour_Ray_3, tr.right * detourBackRay);   // right
+            Gizmos.DrawRay(detour_Ray_3, -tr.right * detourBackRay);   // left
+
+
+            //--- // search pl
+            if (trigInPhSpher == true && trigColAngle == true && trigFofNoBlok == true) Gizmos.color = Color.red;
+            else Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(trPosition, targetDistance);
+
+
+            //--- // search block pl
+            if (trigFofNoBlok == true && trigColAngle == true)
+            {
+                Gizmos.color = Color.red;
+                Gizmos.DrawLine(trPosition + detour_Ray_1, colCurPl);
+            }
+
+            //--- // search pl Aggression
+            if (targetCurrentState >= 2) Gizmos.color = Color.red;
+            else Gizmos.color = Color.gray;
+            Gizmos.DrawWireSphere(trPosition, targetAggression);
+
+
+            //--- // search pl Ignore Obstacles
+            if (targetCurrentState >= 3) Gizmos.color = Color.red;
+            else Gizmos.color = Color.gray;
+            Gizmos.DrawWireSphere(trPosition, targetIgnoreObstacles);
+            
+
+            //--- // search pl Ignore Obstacles
+            if (targetCurrentState >= 4) Gizmos.color = Color.red;
+            else Gizmos.color = Color.gray;
+            Gizmos.DrawWireSphere(trPosition, targetAttack);
+            
+
+            //=======================
+        }
+    }
+
+
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+
+
+
+    void Update()
+    {
+        //=======================
+        
+        trPosition = tr.position;
+        timeDelta = Time.deltaTime;
+
+        //========
+
+        if (rotationSpeedchange > 0)
+        {
+            varQ1 = Quaternion.LookRotation(vectRotGl - trPosition);
+            tr.rotation = Quaternion.Slerp(tr.rotation, varQ1, rotationSpeed * rotationSpeedchange * rotationSpeedRand * timeDelta);
+        }
+
+        //========
+        
+        ChControl.Move(tr.TransformDirection(new Vector3(0, -gravity * timeDelta, movementSpeed * speedchange * speedRand * timeDelta)));
+        
+        //=======================
+    }
+
+
+
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+    IEnumerator AI_Core()
+    {
+        while (true)
+        {
+            //=======================
+
+
+            detour_Ray_0 = tr.right * detourSizeRay;
+            detour_Ray_1 = (tr.up * detourHeightRay) + (tr.forward * detourDistanceToAi);
+            detour_Ray_01A = trPosition + detour_Ray_0 + detour_Ray_1;
+            detour_Ray_01B = trPosition - detour_Ray_0 + detour_Ray_1;
+            detour_Ray_2 = tr.forward * detourDistanceRay;
+            detour_Ray_3 = trPosition - (tr.forward * detourSizeRay) + (tr.up * detourHeightRay);
+
+            rayDetourR = Physics.CheckCapsule(detour_Ray_01A, detour_Ray_01A + detour_Ray_2, detourSizeRay, detourLayerMask);
+            rayDetourL = Physics.CheckCapsule(detour_Ray_01B, detour_Ray_01B + detour_Ray_2, detourSizeRay, detourLayerMask);
+            rayDetourZR = Physics.Raycast(detour_Ray_3, tr.right, detourBackRay, detourLayerMask);
+            rayDetourZL = Physics.Raycast(detour_Ray_3, -tr.right, detourBackRay, detourLayerMask);
+
+            if (rayDetourR == false && rayDetourL == false && rayDetourZR == false && rayDetourZL == false) trigDetour = false;
+            else trigDetour = true;
+            
+
+            //=======================
+
+
+            if (Physics.CheckSphere(trPosition, targetDistance, targetLayerMask))
+            {
+                //----
+
+                trigInPhSpher = true;
+
+                //----
+
+                colPhOvPl = Physics.OverlapSphere(trPosition, targetDistance, targetLayerMask);
+
+                for (int col = 0; col < colPhOvPl.Length; col++)
+                {
+                    colCurPl = colPhOvPl[0].transform.position;
+                    distToColPl = Vector3.Distance(colCurPl, trPosition);
+
+                    if (Vector3.Angle(colCurPl - trPosition, tr.forward) < visionAngle) trigColAngle = true;
+                    else trigColAngle = false;
+                }
+
+                //----
+
+                if (targetCurrentState < 2)
+                {
+                    if (Physics.Linecast(trPosition + detour_Ray_1, colCurPl, out hitFofBl, targetLayerMask | detourLayerMask))
+                    {
+                        if (hitFofBl.transform.gameObject.layer != GlVAR.ToLayer(targetLayerMask))
+                        {
+                            trigFofNoBlok = false;
+                            targetCurrentState = 0;                            
+                        }
+                        else trigFofNoBlok = true;
+                    }
+                    else trigFofNoBlok = false;
+                }
+                else trigFofNoBlok = true;
+
+                //----
+            }
+            else
+            {
+                trigInPhSpher = false;
+                targetCurrentState = 0;
+            }            
+
+            //=======================
+
+
+            if (trigInPhSpher == true && trigColAngle == true && trigFofNoBlok == true)
+            {
+                //----
+
+                if (trigWalking == true)
+                {
+                    trigWalking = false;
+                    StopCoroutine("AI_Walking");
+                }
+
+                //----
+
+                if (trigDetour == true && targetCurrentState < 3)
+                {
+                    AI_Detour();
+                }
+                else
+                {
+                    if (rayDetourTrig == true) rayDetourTrig = false;
+                    vectRotGl = new Vector3(colCurPl.x, 0, colCurPl.z);
+                }
+
+                //----
+
+                if (distToColPl > targetAggression)
+                {
+                    targetCurrentState = 1;
+                    rotationSpeedchange = 1;
+                    speedchange = 1;
+                }
+                else if (distToColPl <= targetAggression && distToColPl > targetIgnoreObstacles)
+                {
+                    targetCurrentState = 2;
+                    rotationSpeedchange = 1;
+                    speedchange = 1;
+                }
+                else if (distToColPl <= targetIgnoreObstacles && distToColPl > targetAttack)
+                {
+                    targetCurrentState = 3;
+                    rotationSpeedchange = 1;
+                    speedchange = 1;
+                }
+                else if (distToColPl <= targetAttack)
+                {
+                    targetCurrentState = 4;
+                    rotationSpeedchange = 2f;
+                    speedchange = 0;
+                }
+
+                //----
+            }
+            else
+            {
+                //----
+
+                if (trigWalking == false)
+                {
+                    trigWalking = true;
+                    StopCoroutine("AI_Walking");
+                    yield return null;
+                    StartCoroutine("AI_Walking");
+                }
+
+                //----
+
+                if (trigDetour == false)
+                {
+                    if (rayDetourTrig == true) rayDetourTrig = false;
+                    vectRotGl = vectRotWalking;                    
+                }
+                else AI_Detour();
+
+                //----
+            }
+
+
+            //=======================
+
+            yield return delay_0;
+
+            //=======================
+        }
+    }
+    
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        
+
+
+    void AI_Detour()
+    {
+        //=======================
+
+
+        if (rayDetourTrig == false)
+        {
+            rayDetourTrig = true;
+            if (rayDetourR == true && rayDetourL == false) rayDetourZnak = -1;
+            if (rayDetourL == true && rayDetourR == false) rayDetourZnak = 1;
+            if(rayDetourL == true && rayDetourR == true) rayDetourZnak = (Random.Range(0, 2) - 0.5f) * 2;
+        }
+        else vectRotGl = trPosition + (rayDetourZnak * 300 * tr.right);
+
+
+        //=======================
+    }
+
+       
+    
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            
+
+
+
+    IEnumerator AI_Walking()
+    {
+        //=======================
+
+        while (trigWalking == true)
+        {
+            //========
+
+            if (Random.Range(1, 10) >= 5)
+            {
+                rotationSpeedchange = 0.5f;
+                speedchange = 0.8f;
+                int znakX = (Random.Range(-150, 150));
+                int znakY = (Random.Range(-150, 150));
+                if (znakX < 20 && znakX > -20) znakY += 300;
+                if (znakY < 20 && znakY > -20) znakX += 300;
+                vectRotWalking = new Vector3(trPosition.x + znakX, 0, trPosition.z + znakY);
+            }
+            else
+            {
+                rotationSpeedchange = 0;
+                speedchange = 0;
+            }
+
+            yield return new WaitForSeconds(7);
+
+            //========
+        }
+
+        //=======================
+    }
+
+    
+
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        
+
+
+    IEnumerator AI_Random()
+    {
+        //=======================
+
+        while (true)
+        {
+            rotationSpeedRand = Random.Range(0.75f, 1.25f);
+            speedRand = Random.Range(0.75f, 1.25f);
+            yield return new WaitForSeconds(4);
+        }
+
+        //=======================
+    }
+
+
+
+
+
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+}
